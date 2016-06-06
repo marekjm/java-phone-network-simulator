@@ -2,6 +2,7 @@ package Cellular;
 
 import java.io.*;
 import java.net.*;
+import java.util.*;
 
 class Cell {
     public static void main(String[] args) throws IOException {
@@ -9,6 +10,8 @@ class Cell {
 
         ServerSocket ssock = new ServerSocket(new Integer(args[0]));
         Socket sock = null;
+
+        Map<String, String> messages = new HashMap<>();
 
         while (true) {
             System.out.print("#");
@@ -38,6 +41,15 @@ class Cell {
                     System.out.println("registered phone: " + parts[1] + " (listening on " + parts[2] + ")");
                 } else if (parts.length == 2 && parts[0].equals("unregister")) {
                     System.out.println("unregistered phone: " + parts[1]);
+                } else if (parts.length == 3 && parts[0].equals("send")) {
+                    messages.put(parts[1], parts[2]);
+                } else if (parts.length == 2 && parts[0].equals("receive")) {
+                    out.println(messages.get(parts[1]));
+                    // if (messages.exists(parts[1])) {
+                    //     System.out.println("receive OK");
+                    // } else {
+                    //     System.out.println("OH NOES!");
+                    // }
                 }
             } while (true);
         }

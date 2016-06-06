@@ -55,6 +55,13 @@ class Phone {
                 case "bye":
                     out.println("bye " + phone_number + " " + operand);
                     break;
+                case "send":
+                    out.println("send " + parts[1] + " " + parts[2]);
+                    break;
+                case "receive":
+                    out.println("receive " + phone_number);
+                    System.out.println(in.readLine());
+                    break;
                 default:
                     System.err.println("error: unknown command: " + command);
             }
