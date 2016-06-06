@@ -12,6 +12,11 @@ class Phone {
 
         Console console = System.console();
 
+        Integer registered_at = 0;
+        Socket sock = null;
+        BufferedReader in = null;
+        PrintWriter out = null;
+
         String input = new String("");
         while (true) {
             System.out.print("> ");
@@ -32,18 +37,19 @@ class Phone {
             String command = parts[0];
             String operand = (parts.length > 1 ? parts[1] : "");
 
-            //Socket sock = new Socket(new Integer(args[1]));
-            Socket sock = null;
-            BufferedReader in = null;
-            PrintWriter out = null;
 
             switch (command) {
                 case "register":
-                    System.out.println("registering...");
-                    sock = new Socket("localhost", new Integer(operand));
+                    registered_at = new Integer(operand);
+                    System.out.println("registering at: " + registered_at);
+                    sock = new Socket("localhost", registered_at);
                     in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
                     out = new PrintWriter(sock.getOutputStream(), true);
-                    out.println(phone_number);
+                    out.println(phone_number); // send phone number to a cell
+                    break;
+                case "unregister":
+                    System.out.println("unregistering from: " + registered_at);
+                    out.println("bye");
                     break;
                 default:
                     System.err.println("error: unknown command: " + command);
