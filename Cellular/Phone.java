@@ -7,7 +7,8 @@ class Phone {
     public static void main(String[] args) throws UnknownHostException, IOException {
         System.out.println("Hello World (from Phone)!");
 
-        String phone_number = args[0];
+        Integer listening_on = new Integer(args[0]);
+        String phone_number = args[1];
         System.out.println("phone: " + phone_number);
 
         Console console = System.console();
@@ -45,11 +46,14 @@ class Phone {
                     sock = new Socket("localhost", registered_at);
                     in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
                     out = new PrintWriter(sock.getOutputStream(), true);
-                    out.println(phone_number); // send phone number to a cell
+                    out.println("register " + phone_number + " " + listening_on); // send phone number to a cell
                     break;
                 case "unregister":
                     System.out.println("unregistering from: " + registered_at);
-                    out.println("bye");
+                    out.println("unregister " + phone_number);
+                    break;
+                case "bye":
+                    out.println("bye " + phone_number + " " + operand);
                     break;
                 default:
                     System.err.println("error: unknown command: " + command);
