@@ -7,6 +7,9 @@ class Phone {
     public static void main(String[] args) throws UnknownHostException, IOException {
         System.out.println("Hello World (from Phone)!");
 
+        String phone_number = args[0];
+        System.out.println("phone: " + phone_number);
+
         Console console = System.console();
 
         String input = new String("");
@@ -40,6 +43,7 @@ class Phone {
                     sock = new Socket("localhost", new Integer(operand));
                     in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
                     out = new PrintWriter(sock.getOutputStream(), true);
+                    out.println(phone_number);
                     break;
                 default:
                     System.err.println("error: unknown command: " + command);

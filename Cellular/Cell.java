@@ -9,16 +9,15 @@ class Cell {
 
         Console console = System.console();
 
+        System.out.println("Cell listening on " + args[0]);
+
         ServerSocket ssock = new ServerSocket(new Integer(args[0]));
-        System.out.println(0);
         Socket sock = ssock.accept();
-        System.out.println(1);
 
         BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-        System.out.println(2);
         PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
 
-        System.out.println("Cell listening on " + args[0]);
+        System.out.println("registered phone: " + in.readLine());
 
         String input = new String("");
         while (true) {
