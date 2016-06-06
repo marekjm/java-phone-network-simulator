@@ -8,11 +8,15 @@ class Cell {
 
         Console console = System.console();
 
-        String command = new String("");
-        while (command != null) {
+        String input = new String("");
+        while (true) {
             System.out.print("> ");
-            command = console.readLine();
-            System.out.println(command);
+            input = console.readLine();
+            if (input == null) {
+                System.out.println("");
+                break;
+            }
+            System.out.println(input);
         }
     }
 }
