@@ -9,6 +9,17 @@ class Cell {
 
         Console console = System.console();
 
+        ServerSocket ssock = new ServerSocket(new Integer(args[0]));
+        System.out.println(0);
+        Socket sock = ssock.accept();
+        System.out.println(1);
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+        System.out.println(2);
+        PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
+
+        System.out.println("Cell listening on " + args[0]);
+
         String input = new String("");
         while (true) {
             System.out.print("> ");
@@ -28,12 +39,6 @@ class Cell {
 
             String command = parts[0];
             String operand = (parts.length > 1 ? parts[1] : "");
-
-            ServerSocket ssock = new ServerSocket(new Integer(args[1]));
-            Socket sock = ssock.accept();
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-            PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
 
             switch (command) {
                 case "connect":
