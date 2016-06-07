@@ -11,6 +11,7 @@ import Cellular.ByeMessage;
 import Cellular.RegisterMessage;
 import Cellular.UnregisterMessage;
 import Cellular.SendMessage;
+import Cellular.TraceMessage;
 
 class Cell {
     public static void main(String[] args) throws IOException {
@@ -36,23 +37,11 @@ class Cell {
                     break;
                 }
                 parts = input.split("\\s+");
-                System.out.println(parts.length + " " + java.util.Arrays.toString(parts));
+                System.out.println(java.util.Arrays.toString(parts));
 
                 Message m = MessageFactory.produce(input);
                 System.out.println(m);
-
-                if (m != null) {
-                    m.execute(env);
-                }
-
-                if (parts.length == 2 && parts[0].equals("receive")) {
-                    env.println(messages.get(parts[1]));
-                    // if (messages.exists(parts[1])) {
-                    //     System.out.println("receive OK");
-                    // } else {
-                    //     System.out.println("OH NOES!");
-                    // }
-                }
+                m.execute(env);
             } while (env.attached());
         }
     }

@@ -62,6 +62,10 @@ class Phone {
                     out.println("receive " + phone_number);
                     System.out.println(in.readLine());
                     break;
+                case "trace":
+                    out.println("trace " + parts[1]);
+                    System.out.println(in.readLine());
+                    break;
                 default:
                     System.err.println("error: unknown command: " + command);
             }

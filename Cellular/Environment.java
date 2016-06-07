@@ -12,7 +12,9 @@ class Environment {
 
     List<String> known_phone_numbers = new ArrayList<String>();
     public Environment registerPhone(String p) {
-        known_phone_numbers.add(p);
+        if (!known_phone_numbers.contains(p)) {
+            known_phone_numbers.add(p);
+        }
         return this;
     }
     public Environment removePhone(String p) {
@@ -21,11 +23,13 @@ class Environment {
     }
 
 
+    private Integer port = -1;
     private ServerSocket ssock = null;
     private Socket _socket = null;
     private BufferedReader _in = null;
     private PrintWriter _out = null;
     public Environment listen(Integer n) throws IOException {
+        port = n;
         ssock = new ServerSocket(n);
         return this;
     }
@@ -57,6 +61,29 @@ class Environment {
         return this;
     }
     public Environment fetchMessage(String phone_number) {
+        String msg = null;
+
+        if (messages.containsKey(phone_number)) {
+            if (messages.get(phone_number).size() > 0) {
+                msg = messages.get(phone_number).remove(0);
+            }
+        }
+
+        if (msg == null) {
+            msg = "";
+        }
+
+        println(msg);
         return this;
+    }
+
+    public List<Integer> tracePhone(String phone_number) {
+        List<Integer> trc = new ArrayList<Integer>();
+        if (known_phone_numbers.contains(phone_number)) {
+            trc.add(port);
+        } else {
+            // FIXME: TODO: implement
+        }
+        return trc;
     }
 }
