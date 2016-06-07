@@ -2,6 +2,7 @@ package Cellular;
 
 import Cellular.Message;
 import Cellular.ByeMessage;
+import Cellular.RegisterMessage;
 
 class MessageFactory {
     static public Message produce(String input) {
@@ -17,6 +18,9 @@ class MessageFactory {
         switch (parts[0]) {
             case "bye":
                 m = new ByeMessage(parts);
+                break;
+            case "register":
+                m = new RegisterMessage(parts);
                 break;
             default:
                 // FIXME: throw an exception
