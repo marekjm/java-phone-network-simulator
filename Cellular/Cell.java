@@ -12,6 +12,7 @@ import Cellular.RegisterMessage;
 import Cellular.UnregisterMessage;
 import Cellular.SendMessage;
 import Cellular.TraceMessage;
+import Cellular.IntroduceMessage;
 
 class Cell {
     public static void main(String[] args) throws IOException {
@@ -20,6 +21,11 @@ class Cell {
         Map<String, String> messages = new HashMap<>();
         Environment env = new Environment();
         env.listen(new Integer(args[0]));
+
+        for (String nearby_cell : java.util.Arrays.asList(args).subList(1, args.length)) {
+            env.send(new Integer(nearby_cell), ("introduce " + args[0]));
+            env.introduce(new Integer(nearby_cell));
+        }
 
         while (true) {
             System.out.print("#");

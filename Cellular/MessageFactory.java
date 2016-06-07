@@ -7,6 +7,7 @@ import Cellular.UnregisterMessage;
 import Cellular.SendMessage;
 import Cellular.ReceiveMessage;
 import Cellular.TraceMessage;
+import Cellular.IntroduceMessage;
 
 class MessageFactory {
     static public Message produce(String input) {
@@ -37,6 +38,9 @@ class MessageFactory {
                 break;
             case "trace":
                 m = new TraceMessage(parts);
+                break;
+            case "introduce":
+                m = new IntroduceMessage(parts);
                 break;
             default:
                 m = new Message(parts);

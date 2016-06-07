@@ -90,6 +90,11 @@ class Environment {
         return this;
     }
 
+    public void send(Integer cell_port, String message) throws UnknownHostException, IOException {
+        Socket send_socket = new Socket("localhost", cell_port);
+        (new PrintWriter(send_socket.getOutputStream(), true)).println(message);
+    }
+
     public List<Integer> tracePhone(String phone_number) {
         List<Integer> trc = new ArrayList<Integer>();
         if (known_phone_numbers.contains(phone_number)) {
