@@ -77,12 +77,25 @@ class Environment {
         return this;
     }
 
+
+    private List<Integer> nearby_cells = new ArrayList<Integer>();
+    public Environment introduce(Integer n) {
+        if (!nearby_cells.contains(n)) {
+            nearby_cells.add(n);
+        }
+        return this;
+    }
+    public Environment adieu(Integer n) {
+        nearby_cells.remove(n);
+        return this;
+    }
+
     public List<Integer> tracePhone(String phone_number) {
         List<Integer> trc = new ArrayList<Integer>();
         if (known_phone_numbers.contains(phone_number)) {
             trc.add(port);
         } else {
-            // FIXME: TODO: implement
+            trc.addAll(nearby_cells);
         }
         return trc;
     }
