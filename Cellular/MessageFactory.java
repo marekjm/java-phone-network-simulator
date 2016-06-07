@@ -4,6 +4,8 @@ import Cellular.Message;
 import Cellular.ByeMessage;
 import Cellular.RegisterMessage;
 import Cellular.UnregisterMessage;
+import Cellular.SendMessage;
+import Cellular.ReceiveMessage;
 
 class MessageFactory {
     static public Message produce(String input) {
@@ -25,6 +27,9 @@ class MessageFactory {
                 break;
             case "unregister":
                 m = new UnregisterMessage(parts);
+                break;
+            case "send":
+                m = new SendMessage(parts);
                 break;
             default:
                 m = new Message(parts);

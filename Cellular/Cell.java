@@ -5,11 +5,12 @@ import java.net.*;
 import java.util.*;
 
 import Cellular.Environment;
+import Cellular.MessageFactory;
 import Cellular.Message;
 import Cellular.ByeMessage;
 import Cellular.RegisterMessage;
 import Cellular.UnregisterMessage;
-import Cellular.MessageFactory;
+import Cellular.SendMessage;
 
 class Cell {
     public static void main(String[] args) throws IOException {
@@ -49,9 +50,7 @@ class Cell {
                     m.execute(env);
                 }
 
-                if (parts.length == 3 && parts[0].equals("send")) {
-                    messages.put(parts[1], parts[2]);
-                } else if (parts.length == 2 && parts[0].equals("receive")) {
+                if (parts.length == 2 && parts[0].equals("receive")) {
                     out.println(messages.get(parts[1]));
                     // if (messages.exists(parts[1])) {
                     //     System.out.println("receive OK");

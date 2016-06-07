@@ -3,13 +3,16 @@ package Cellular;
 import Cellular.Environment;
 import Cellular.Message;
 
-class UnregisterMessage extends Cellular.Message {
+class SendMessage extends Cellular.Message {
     private String phone_number;
-    public UnregisterMessage(String[] args) {
+    private String text;
+
+    public SendMessage(String[] args) {
         super(args);
         phone_number = args[1];
+        text = args[2];
     }
     public void execute(Environment e) {
-        e.removePhone(phone_number);
+        e.routeMessage(phone_number, text);
     }
 }
