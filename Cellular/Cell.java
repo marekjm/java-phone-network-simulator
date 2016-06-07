@@ -4,6 +4,11 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+import Cellular.Environment;
+import Cellular.Message;
+import Cellular.ByeMessage;
+import Cellular.MessageFactory;
+
 class Cell {
     public static void main(String[] args) throws IOException {
         Console console = System.console();
@@ -33,6 +38,9 @@ class Cell {
                 }
                 parts = input.split("\\s+");
                 System.out.println(parts.length + " " + java.util.Arrays.toString(parts));
+
+                Message m = MessageFactory.produce(input);
+                System.out.println(m);
 
                 if (parts.length == 3 && parts[0].equals("bye")) {
                     System.out.println("bye from " + parts[1] + ": " + parts[2]);
