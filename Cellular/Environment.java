@@ -49,15 +49,21 @@ class Environment {
 
 
     Map<String, List<String>> messages = new HashMap<String, List<String>>();
-    public Environment routeMessage(String phone_number, String text) {
-        if (!known_phone_numbers.contains(phone_number)) {
+    public Environment routeMessage(String phone_number, String text) throws UnknownHostException, IOException {
+        List<Integer> cells = tracePhone(phone_number, "0,");
+        if (cells.size() == 0) {
             System.out.println("error: unknown phone number: " + phone_number);
             return this;
         }
-        if (!messages.containsKey(phone_number)) {
-            messages.put(phone_number, new ArrayList<String>());
+        if (port == cells.get(0) && known_phone_numbers.contains(phone_number)) {
+            if (!messages.containsKey(phone_number)) {
+                messages.put(phone_number, new ArrayList<String>());
+            }
+            messages.get(phone_number).add(text);
+        } else {
+            send(cells.get(1), ("send " + phone_number + " " + text));
         }
-        messages.get(phone_number).add(text);
+
         return this;
     }
     public Environment fetchMessage(String phone_number) {
