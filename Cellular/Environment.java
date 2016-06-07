@@ -12,4 +12,8 @@ class Environment {
         known_phone_numbers.add(p);
         return this;
     }
+    public Environment removePhone(String p) {
+        known_phone_numbers.remove(p);
+        return this;
+    }
 }

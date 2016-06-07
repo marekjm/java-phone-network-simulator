@@ -8,6 +8,7 @@ import Cellular.Environment;
 import Cellular.Message;
 import Cellular.ByeMessage;
 import Cellular.RegisterMessage;
+import Cellular.UnregisterMessage;
 import Cellular.MessageFactory;
 
 class Cell {
@@ -48,9 +49,7 @@ class Cell {
                     m.execute(env);
                 }
 
-                if (parts.length == 2 && parts[0].equals("unregister")) {
-                    System.out.println("unregistered phone: " + parts[1]);
-                } else if (parts.length == 3 && parts[0].equals("send")) {
+                if (parts.length == 3 && parts[0].equals("send")) {
                     messages.put(parts[1], parts[2]);
                 } else if (parts.length == 2 && parts[0].equals("receive")) {
                     out.println(messages.get(parts[1]));

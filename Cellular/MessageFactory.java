@@ -3,6 +3,7 @@ package Cellular;
 import Cellular.Message;
 import Cellular.ByeMessage;
 import Cellular.RegisterMessage;
+import Cellular.UnregisterMessage;
 
 class MessageFactory {
     static public Message produce(String input) {
@@ -22,9 +23,11 @@ class MessageFactory {
             case "register":
                 m = new RegisterMessage(parts);
                 break;
+            case "unregister":
+                m = new UnregisterMessage(parts);
+                break;
             default:
-                // FIXME: throw an exception
-                m = null;
+                m = new Message(parts);
         }
 
         return m;
