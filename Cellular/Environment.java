@@ -38,7 +38,7 @@ class Environment {
     public String getline() throws IOException {
         return _in.readLine();
     }
-    public Environment print(String line) {
+    public Environment println(String line) {
         _out.println(line);
         return this;
     }

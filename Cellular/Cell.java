@@ -16,26 +16,21 @@ class Cell {
     public static void main(String[] args) throws IOException {
         Console console = System.console();
 
-        ServerSocket ssock = new ServerSocket(new Integer(args[0]));
-        Socket sock = null;
-
         Map<String, String> messages = new HashMap<>();
         Environment env = new Environment();
+        env.listen(new Integer(args[0]));
 
         while (true) {
             System.out.print("#");
-            sock = ssock.accept();
+            env.accept();
             System.out.println("!");
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-            PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
 
             String input = null;
             String[] parts = null;
 
             do {
                 System.out.print("<- ");
-                input = in.readLine();
+                input = env.getline();
                 if (input == null) {
                     System.out.println("<connection lost>");
                     break;
@@ -51,7 +46,7 @@ class Cell {
                 }
 
                 if (parts.length == 2 && parts[0].equals("receive")) {
-                    out.println(messages.get(parts[1]));
+                    env.println(messages.get(parts[1]));
                     // if (messages.exists(parts[1])) {
                     //     System.out.println("receive OK");
                     // } else {
