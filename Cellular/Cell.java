@@ -17,6 +17,7 @@ class Cell {
         Socket sock = null;
 
         Map<String, String> messages = new HashMap<>();
+        Environment env = new Environment();
 
         while (true) {
             System.out.print("#");
@@ -42,11 +43,13 @@ class Cell {
                 Message m = MessageFactory.produce(input);
                 System.out.println(m);
 
-                if (parts.length == 3 && parts[0].equals("bye")) {
-                    System.out.println("bye from " + parts[1] + ": " + parts[2]);
-                    break;
-                } else if (parts.length == 3 && parts[0].equals("register")) {
+                if (m != null) {
+                    m.execute(env);
+                }
+
+                if (parts.length == 3 && parts[0].equals("register")) {
                     System.out.println("registered phone: " + parts[1] + " (listening on " + parts[2] + ")");
+                    env.attached(true);
                 } else if (parts.length == 2 && parts[0].equals("unregister")) {
                     System.out.println("unregistered phone: " + parts[1]);
                 } else if (parts.length == 3 && parts[0].equals("send")) {
@@ -59,7 +62,7 @@ class Cell {
                     //     System.out.println("OH NOES!");
                     // }
                 }
-            } while (true);
+            } while (env.attached());
         }
     }
 }
