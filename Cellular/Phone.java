@@ -63,7 +63,7 @@ class Phone {
                     System.out.println(in.readLine());
                     break;
                 case "trace":
-                    out.println("trace " + parts[1]);
+                    out.println("trace " + parts[1] + " 0,");
                     System.out.println(in.readLine());
                     break;
                 default:

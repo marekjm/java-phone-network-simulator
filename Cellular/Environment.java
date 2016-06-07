@@ -94,13 +94,33 @@ class Environment {
         Socket send_socket = new Socket("localhost", cell_port);
         (new PrintWriter(send_socket.getOutputStream(), true)).println(message);
     }
+    public String communicate(Integer cell_port, String message) throws UnknownHostException, IOException {
+        Socket send_socket = new Socket("localhost", cell_port);
+        (new PrintWriter(send_socket.getOutputStream(), true)).println(message);
+        return (new BufferedReader(new InputStreamReader(send_socket.getInputStream()))).readLine();
+    }
 
-    public List<Integer> tracePhone(String phone_number) {
+    public List<Integer> tracePhone(String phone_number, String already_visited) throws UnknownHostException, IOException {
         List<Integer> trc = new ArrayList<Integer>();
+
+        already_visited.concat(port.toString() + ",");
+
         if (known_phone_numbers.contains(phone_number)) {
             trc.add(port);
         } else {
-            trc.addAll(nearby_cells);
+            Integer nearby = nearby_cells.get(0);
+            if (!already_visited.contains(nearby.toString())) {
+                String r = communicate(nearby_cells.get(0), ("trace " + phone_number + " " + already_visited + port + ","));
+                if (!r.equals("[]")) {
+                    trc.add(port);
+                    r = r.substring(1, r.length()-1);
+                    System.out.println(r);
+                    String[] nos = r.split(",");
+                    for (String s : nos) {
+                        trc.add(new Integer(s));
+                    }
+                }
+            }
         }
         return trc;
     }
