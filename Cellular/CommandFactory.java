@@ -4,6 +4,7 @@ import Cellular.Command;
 import Cellular.UnregisterCommand;
 import Cellular.TraceCommand;
 import Cellular.SendCommand;
+import Cellular.ReceiveCommand;
 
 class CommandFactory {
     public static Command produce(String input) {
@@ -25,6 +26,9 @@ class CommandFactory {
                 break;
             case "send":
                 c = new SendCommand(parts);
+                break;
+            case "receive":
+                c = new ReceiveCommand(parts);
                 break;
         }
 

@@ -9,7 +9,7 @@ import Cellular.Command;
 class UnregisterCommand extends Cellular.Command {
     public void execute(Integer port, String phone_number) {
         if (connect(port)) {
-            out.println("unregister " + phone_number);
+            write("unregister " + phone_number);
         }
     }
 

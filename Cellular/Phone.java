@@ -9,6 +9,7 @@ import Cellular.UnregisterCommand;
 import Cellular.UnregisterCommand;
 import Cellular.TraceCommand;
 import Cellular.SendCommand;
+import Cellular.ReceiveCommand;
 
 class Phone {
     private static String getline() {
@@ -64,15 +65,6 @@ class Phone {
 
             Command c = CommandFactory.produce(input);
             c.execute(registered_at, phone_number);
-
-            // switch (command) {
-            //     case "receive":
-            //         out.println("receive " + phone_number);
-            //         System.out.println(in.readLine());
-            //         break;
-            //     default:
-            //         System.err.println("error: unknown command: " + command);
-            // }
         }
     }
 }
