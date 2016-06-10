@@ -35,20 +35,18 @@ class Cell {
             String input = null;
             String[] parts = null;
 
-            do {
-                System.out.print("<- ");
-                input = env.getline();
-                if (input == null) {
-                    System.out.println("<connection lost>");
-                    break;
-                }
-                parts = input.split("\\s+");
-                System.out.println(java.util.Arrays.toString(parts));
+            System.out.print("<- ");
+            input = env.getline();
+            if (input == null) {
+                System.out.println("<connection lost>");
+                break;
+            }
+            parts = input.split("\\s+");
+            System.out.println(java.util.Arrays.toString(parts));
 
-                Message m = MessageFactory.produce(input);
-                System.out.println(m);
-                m.execute(env);
-            } while (env.attached());
+            Message m = MessageFactory.produce(input);
+            System.out.println(m);
+            m.execute(env);
         }
     }
 }

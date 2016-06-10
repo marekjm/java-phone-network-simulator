@@ -38,6 +38,19 @@ class Phone {
             String command = parts[0];
             String operand = (parts.length > 1 ? parts[1] : "");
 
+            if ((!command.equals("register")) && registered_at == 0) {
+                System.out.println("error: phone is not registered at any cell");
+                continue;
+            } else if (command.equals("register") && registered_at != 0) {
+                System.out.println("error: phone is already registered at cell " + registered_at);
+                continue;
+            }
+
+            if (registered_at != 0) {
+                sock = new Socket("localhost", registered_at);
+                in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+                out = new PrintWriter(sock.getOutputStream(), true);
+            }
 
             switch (command) {
                 case "register":
