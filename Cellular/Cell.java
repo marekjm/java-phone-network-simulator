@@ -30,11 +30,8 @@ class Cell {
             env.accept();
             System.out.println("!");
 
-            String input = null;
-            String[] parts = null;
-
             System.out.print("<- ");
-            input = env.getline();
+            String input = env.getline();
             if (input == null) {
                 System.out.println("<connection lost>");
                 continue;
