@@ -4,14 +4,13 @@ import java.io.*;
 import java.net.*;
 
 class Phone {
-    public static void main(String[] args) throws UnknownHostException, IOException {
-        System.out.println("Hello World (from Phone)!");
+    private static String getline() {
+        return System.console().readLine();
+    }
 
+    public static void main(String[] args) throws UnknownHostException, IOException {
         Integer listening_on = new Integer(args[0]);
         String phone_number = args[1];
-        System.out.println("phone: " + phone_number);
-
-        Console console = System.console();
 
         Integer registered_at = 0;
         Socket sock = null;
@@ -21,7 +20,7 @@ class Phone {
         String input = new String("");
         while (true) {
             System.out.print("> ");
-            input = console.readLine();
+            input = Phone.getline();
             if (input == null) {
                 System.out.println("");
                 break;
