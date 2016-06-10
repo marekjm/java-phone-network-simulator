@@ -57,15 +57,14 @@ class Phone {
                 out = new PrintWriter(sock.getOutputStream(), true);
                 out.println("register " + phone_number + " " + listening_on); // send phone number to a cell
                 continue;
+            } else if (command.equals("bye")) {
+                break;
             }
 
             Command c = CommandFactory.produce(input);
             c.execute(registered_at, phone_number);
 
             // switch (command) {
-            //     case "bye":
-            //         out.println("bye " + phone_number + " " + operand);
-            //         break;
             //     case "send":
             //         out.println("send " + parts[1] + " " + parts[2]);
             //         break;
