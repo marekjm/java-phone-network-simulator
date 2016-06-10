@@ -39,8 +39,7 @@ class Cell {
                 System.out.println("<connection lost>");
                 continue;
             }
-            parts = input.split("\\s+");
-            System.out.println(java.util.Arrays.toString(parts));
+            System.out.println(java.util.Arrays.toString(input.split("\\s+")));
 
             Message m = MessageFactory.produce(input);
             System.out.println(m);
