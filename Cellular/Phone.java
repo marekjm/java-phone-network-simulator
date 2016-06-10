@@ -17,9 +17,9 @@ class Phone {
         String phone_number = args[1];
 
         Integer registered_at = 0;
-        Socket sock = null;
-        BufferedReader in = null;
-        PrintWriter out = null;
+        // Socket sock = null;
+        // BufferedReader in = null;
+        // PrintWriter out = null;
 
         String input = new String("");
         while (true) {
@@ -50,17 +50,14 @@ class Phone {
             } else if (command.equals("register") && registered_at == 0) {
                 registered_at = new Integer(operand);
                 System.out.println("registering at: " + registered_at);
+                Socket sock = null;
+                BufferedReader in = null;
+                PrintWriter out = null;
                 sock = new Socket("localhost", registered_at);
                 in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
                 out = new PrintWriter(sock.getOutputStream(), true);
                 out.println("register " + phone_number + " " + listening_on); // send phone number to a cell
                 continue;
-            }
-
-            if (registered_at != 0) {
-                sock = new Socket("localhost", registered_at);
-                in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-                out = new PrintWriter(sock.getOutputStream(), true);
             }
 
             Command c = CommandFactory.produce(input);

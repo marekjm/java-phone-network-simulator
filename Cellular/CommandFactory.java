@@ -2,6 +2,7 @@ package Cellular;
 
 import Cellular.Command;
 import Cellular.UnregisterCommand;
+import Cellular.TraceCommand;
 
 class CommandFactory {
     public static Command produce(String input) {
@@ -17,6 +18,9 @@ class CommandFactory {
         switch (parts[0]) {
             case "unregister":
                 c = new UnregisterCommand(parts);
+                break;
+            case "trace":
+                c = new TraceCommand(parts);
                 break;
         }
 
