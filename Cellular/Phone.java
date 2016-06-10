@@ -3,6 +3,7 @@ package Cellular;
 import java.io.*;
 import java.net.*;
 
+import Cellular.PhoneEnvironment;
 import Cellular.CommandFactory;
 import Cellular.Command;
 import Cellular.UnregisterCommand;
@@ -18,9 +19,9 @@ class Phone {
 
     public static void main(String[] args) throws UnknownHostException, IOException {
         Integer listening_on = new Integer(args[0]);
-        String phone_number = args[1];
 
-        Integer registered_at = 0;
+        PhoneEnvironment env = new PhoneEnvironment();
+        env.number(args[1]);
 
         String input = new String("");
         while (true) {
@@ -42,29 +43,28 @@ class Phone {
             String command = parts[0];
             String operand = (parts.length > 1 ? parts[1] : "");
 
-            if ((!command.equals("register")) && registered_at == 0) {
+            if ((!command.equals("register")) && env.cell() == 0) {
                 System.out.println("error: phone is not registered at any cell");
                 continue;
-            } else if (command.equals("register") && registered_at != 0) {
-                System.out.println("error: phone is already registered at cell " + registered_at);
+            } else if (command.equals("register") && env.cell() != 0) {
+                System.out.println("error: phone is already registered at cell " + env.cell());
                 continue;
-            } else if (command.equals("register") && registered_at == 0) {
-                registered_at = new Integer(operand);
-                System.out.println("registering at: " + registered_at);
+            } else if (command.equals("register") && env.cell() == 0) {
+                env.cell(new Integer(operand));
                 Socket sock = null;
                 BufferedReader in = null;
                 PrintWriter out = null;
-                sock = new Socket("localhost", registered_at);
+                sock = new Socket("localhost", env.cell());
                 in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
                 out = new PrintWriter(sock.getOutputStream(), true);
-                out.println("register " + phone_number + " " + listening_on); // send phone number to a cell
+                out.println("register " + env.number() + " " + listening_on); // send phone number to a cell
                 continue;
             } else if (command.equals("bye")) {
                 break;
             }
 
             Command c = CommandFactory.produce(input);
-            c.execute(registered_at, phone_number);
+            c.execute(env.cell(), env.number());
         }
     }
 }
