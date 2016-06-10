@@ -3,6 +3,10 @@ package Cellular;
 import java.io.*;
 import java.net.*;
 
+import Cellular.CommandFactory;
+import Cellular.Command;
+import Cellular.UnregisterCommand;
+
 class Phone {
     private static String getline() {
         return System.console().readLine();
@@ -30,7 +34,7 @@ class Phone {
             System.out.println(parts.length + " " + java.util.Arrays.toString(parts));
 
             // we need a command and at least one operand
-            if (parts.length < 2) {
+            if (parts.length < 1) {
                 continue;
             }
 
@@ -43,6 +47,14 @@ class Phone {
             } else if (command.equals("register") && registered_at != 0) {
                 System.out.println("error: phone is already registered at cell " + registered_at);
                 continue;
+            } else if (command.equals("register") && registered_at == 0) {
+                registered_at = new Integer(operand);
+                System.out.println("registering at: " + registered_at);
+                sock = new Socket("localhost", registered_at);
+                in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+                out = new PrintWriter(sock.getOutputStream(), true);
+                out.println("register " + phone_number + " " + listening_on); // send phone number to a cell
+                continue;
             }
 
             if (registered_at != 0) {
@@ -51,36 +63,39 @@ class Phone {
                 out = new PrintWriter(sock.getOutputStream(), true);
             }
 
-            switch (command) {
-                case "register":
-                    registered_at = new Integer(operand);
-                    System.out.println("registering at: " + registered_at);
-                    sock = new Socket("localhost", registered_at);
-                    in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-                    out = new PrintWriter(sock.getOutputStream(), true);
-                    out.println("register " + phone_number + " " + listening_on); // send phone number to a cell
-                    break;
-                case "unregister":
-                    System.out.println("unregistering from: " + registered_at);
-                    out.println("unregister " + phone_number);
-                    break;
-                case "bye":
-                    out.println("bye " + phone_number + " " + operand);
-                    break;
-                case "send":
-                    out.println("send " + parts[1] + " " + parts[2]);
-                    break;
-                case "receive":
-                    out.println("receive " + phone_number);
-                    System.out.println(in.readLine());
-                    break;
-                case "trace":
-                    out.println("trace " + parts[1] + " 0,");
-                    System.out.println(in.readLine());
-                    break;
-                default:
-                    System.err.println("error: unknown command: " + command);
-            }
+            Command c = CommandFactory.produce(input);
+            c.execute(registered_at, phone_number);
+
+            // switch (command) {
+            //     case "register":
+            //         registered_at = new Integer(operand);
+            //         System.out.println("registering at: " + registered_at);
+            //         sock = new Socket("localhost", registered_at);
+            //         in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+            //         out = new PrintWriter(sock.getOutputStream(), true);
+            //         out.println("register " + phone_number + " " + listening_on); // send phone number to a cell
+            //         break;
+            //     case "unregister":
+            //         System.out.println("unregistering from: " + registered_at);
+            //         out.println("unregister " + phone_number);
+            //         break;
+            //     case "bye":
+            //         out.println("bye " + phone_number + " " + operand);
+            //         break;
+            //     case "send":
+            //         out.println("send " + parts[1] + " " + parts[2]);
+            //         break;
+            //     case "receive":
+            //         out.println("receive " + phone_number);
+            //         System.out.println(in.readLine());
+            //         break;
+            //     case "trace":
+            //         out.println("trace " + parts[1] + " 0,");
+            //         System.out.println(in.readLine());
+            //         break;
+            //     default:
+            //         System.err.println("error: unknown command: " + command);
+            // }
         }
     }
 }
