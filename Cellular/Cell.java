@@ -37,7 +37,7 @@ class Cell {
             input = env.getline();
             if (input == null) {
                 System.out.println("<connection lost>");
-                break;
+                continue;
             }
             parts = input.split("\\s+");
             System.out.println(java.util.Arrays.toString(parts));
