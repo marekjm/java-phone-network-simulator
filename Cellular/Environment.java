@@ -114,16 +114,18 @@ class Environment {
         if (known_phone_numbers.contains(phone_number)) {
             trc.add(port);
         } else {
-            Integer nearby = nearby_cells.get(0);
-            if (!already_visited.contains(nearby.toString())) {
-                String r = communicate(nearby_cells.get(0), ("trace " + phone_number + " " + already_visited + port + ","));
-                if (!r.equals("[]")) {
-                    trc.add(port);
-                    r = r.substring(1, r.length()-1);
-                    System.out.println(r);
-                    String[] nos = r.split(",");
-                    for (String s : nos) {
-                        trc.add(new Integer(s));
+            for (Integer nearby : nearby_cells) {
+                if (!already_visited.contains(nearby.toString())) {
+                    String r = communicate(nearby, ("trace " + phone_number + " " + already_visited + port + ","));
+                    if (!r.equals("[]")) {
+                        trc.add(port);
+                        r = r.substring(1, r.length()-1);
+                        System.out.println(r);
+                        String[] nos = r.split(", *");
+                        for (String s : nos) {
+                            trc.add(new Integer(s));
+                        }
+                        break;
                     }
                 }
             }
