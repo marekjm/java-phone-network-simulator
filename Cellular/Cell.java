@@ -16,8 +16,6 @@ import Cellular.IntroduceMessage;
 
 class Cell {
     public static void main(String[] args) throws IOException {
-        Console console = System.console();
-
         Map<String, String> messages = new HashMap<>();
         Environment env = new Environment();
         env.listen(new Integer(args[0]));
