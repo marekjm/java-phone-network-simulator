@@ -5,13 +5,14 @@ import java.io.*;
 import java.net.*;
 
 import Cellular.Command;
+import Cellular.PhoneEnvironment;
 
 class SendCommand extends Cellular.Command {
     private String recipient;
     private String message;
 
-    public void execute(Integer port, String phone_number) {
-        if (connect(port)) {
+    public void execute(PhoneEnvironment env) {
+        if (connect(env.cell())) {
             write("send " + recipient + " " + message);
         }
     }

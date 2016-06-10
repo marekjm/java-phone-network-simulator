@@ -5,11 +5,12 @@ import java.io.*;
 import java.net.*;
 
 import Cellular.Command;
+import Cellular.PhoneEnvironment;
 
 class UnregisterCommand extends Cellular.Command {
-    public void execute(Integer port, String phone_number) {
-        if (connect(port)) {
-            write("unregister " + phone_number);
+    public void execute(PhoneEnvironment env) {
+        if (connect(env.cell())) {
+            write("unregister " + env.number());
         }
     }
 

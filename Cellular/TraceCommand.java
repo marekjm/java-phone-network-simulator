@@ -5,12 +5,13 @@ import java.io.*;
 import java.net.*;
 
 import Cellular.Command;
+import Cellular.PhoneEnvironment;
 
 class TraceCommand extends Cellular.Command {
     private String number_to_trace;
 
-    public void execute(Integer port, String phone_number) {
-        if (connect(port)) {
+    public void execute(PhoneEnvironment env) {
+        if (connect(env.cell())) {
             try {
                 write("trace " + number_to_trace + " 0,");
                 System.out.println(read());

@@ -6,7 +6,7 @@ import java.net.*;
 import Cellular.PhoneEnvironment;
 import Cellular.CommandFactory;
 import Cellular.Command;
-import Cellular.UnregisterCommand;
+import Cellular.RegisterCommand;
 import Cellular.UnregisterCommand;
 import Cellular.TraceCommand;
 import Cellular.SendCommand;
@@ -43,28 +43,12 @@ class Phone {
             String command = parts[0];
             String operand = (parts.length > 1 ? parts[1] : "");
 
-            if ((!command.equals("register")) && env.cell() == 0) {
-                System.out.println("error: phone is not registered at any cell");
-                continue;
-            } else if (command.equals("register") && env.cell() != 0) {
-                System.out.println("error: phone is already registered at cell " + env.cell());
-                continue;
-            } else if (command.equals("register") && env.cell() == 0) {
-                env.cell(new Integer(operand));
-                Socket sock = null;
-                BufferedReader in = null;
-                PrintWriter out = null;
-                sock = new Socket("localhost", env.cell());
-                in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-                out = new PrintWriter(sock.getOutputStream(), true);
-                out.println("register " + env.number() + " " + listening_on); // send phone number to a cell
-                continue;
-            } else if (command.equals("bye")) {
+            if (command.equals("bye")) {
                 break;
             }
 
             Command c = CommandFactory.produce(input);
-            c.execute(env.cell(), env.number());
+            c.execute(env);
         }
     }
 }

@@ -4,6 +4,8 @@ import java.util.*;
 import java.io.*;
 import java.net.*;
 
+import Cellular.PhoneEnvironment;
+
 class Command {
     protected String[] arguments;
 
@@ -38,7 +40,7 @@ class Command {
         return success;
     }
 
-    public void execute(Integer port, String phone_number) {
+    public void execute(PhoneEnvironment env) {
         System.out.println("unknown command: " + java.util.Arrays.toString(arguments));
     }
 

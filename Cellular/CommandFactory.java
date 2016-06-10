@@ -1,6 +1,7 @@
 package Cellular;
 
 import Cellular.Command;
+import Cellular.RegisterCommand;
 import Cellular.UnregisterCommand;
 import Cellular.TraceCommand;
 import Cellular.SendCommand;
@@ -18,6 +19,9 @@ class CommandFactory {
         }
 
         switch (parts[0]) {
+            case "register":
+                c = new RegisterCommand(parts);
+                break;
             case "unregister":
                 c = new UnregisterCommand(parts);
                 break;

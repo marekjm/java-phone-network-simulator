@@ -5,11 +5,12 @@ import java.io.*;
 import java.net.*;
 
 import Cellular.Command;
+import Cellular.PhoneEnvironment;
 
 class ReceiveCommand extends Cellular.Command {
-    public void execute(Integer port, String phone_number) {
-        if (connect(port)) {
-            write("receive " + phone_number);
+    public void execute(PhoneEnvironment env) {
+        if (connect(env.cell())) {
+            write("receive " + env.number());
             try {
                 System.out.println(read());
             } catch (IOException e) {
