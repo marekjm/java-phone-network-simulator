@@ -32,21 +32,6 @@ class Phone {
                 break;
             }
 
-            String[] parts = input.split("\\s+");
-            System.out.println(parts.length + " " + java.util.Arrays.toString(parts));
-
-            // we need a command and at least one operand
-            if (parts.length < 1) {
-                continue;
-            }
-
-            String command = parts[0];
-            String operand = (parts.length > 1 ? parts[1] : "");
-
-            if (command.equals("bye")) {
-                break;
-            }
-
             Command c = CommandFactory.produce(input);
             c.execute(env);
         }
