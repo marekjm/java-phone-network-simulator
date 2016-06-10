@@ -3,6 +3,7 @@ package Cellular;
 import Cellular.Command;
 import Cellular.UnregisterCommand;
 import Cellular.TraceCommand;
+import Cellular.SendCommand;
 
 class CommandFactory {
     public static Command produce(String input) {
@@ -21,6 +22,9 @@ class CommandFactory {
                 break;
             case "trace":
                 c = new TraceCommand(parts);
+                break;
+            case "send":
+                c = new SendCommand(parts);
                 break;
         }
 

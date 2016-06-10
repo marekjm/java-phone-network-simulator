@@ -6,8 +6,9 @@ import java.net.*;
 import Cellular.CommandFactory;
 import Cellular.Command;
 import Cellular.UnregisterCommand;
-import Cellular.TraceCommand;
 import Cellular.UnregisterCommand;
+import Cellular.TraceCommand;
+import Cellular.SendCommand;
 
 class Phone {
     private static String getline() {
@@ -65,9 +66,6 @@ class Phone {
             c.execute(registered_at, phone_number);
 
             // switch (command) {
-            //     case "send":
-            //         out.println("send " + parts[1] + " " + parts[2]);
-            //         break;
             //     case "receive":
             //         out.println("receive " + phone_number);
             //         System.out.println(in.readLine());
