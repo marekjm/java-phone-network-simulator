@@ -6,6 +6,8 @@ import java.net.*;
 import Cellular.CommandFactory;
 import Cellular.Command;
 import Cellular.UnregisterCommand;
+import Cellular.TraceCommand;
+import Cellular.UnregisterCommand;
 
 class Phone {
     private static String getline() {

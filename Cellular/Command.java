@@ -7,20 +7,28 @@ import java.net.*;
 class Command {
     protected String[] arguments;
 
-    private Socket _socket = null;
-    private BufferedReader _in = null;
-    private PrintWriter _out = null;
+    protected Socket socket = null;
+    protected BufferedReader in = null;
+    protected PrintWriter out = null;
 
-    protected Socket socket() { return _socket; }
-    protected BufferedReader in() { return _in; }
-    protected PrintWriter out() { return _out; }
+    protected void write(String s) {
+        out.println(s);
+    }
+
+    protected String read() throws IOException {
+        return in.readLine();
+    }
+
+    // protected Socket socket() { return _socket; }
+    // protected BufferedReader in() { return _in; }
+    // protected PrintWriter out() { return _out; }
 
     protected boolean connect(Integer port) {
         boolean success = false;
         try {
-            _socket = new Socket("localhost", port);
-            _in = new BufferedReader(new InputStreamReader(_socket.getInputStream()));
-            _out = new PrintWriter(_socket.getOutputStream(), true);
+            socket = new Socket("localhost", port);
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
             success = true;
         } catch (UnknownHostException e) {
             System.out.println("failed to create socket: " + e);
