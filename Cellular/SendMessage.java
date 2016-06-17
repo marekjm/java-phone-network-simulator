@@ -1,5 +1,8 @@
 package Cellular;
 
+import java.net.*;
+import java.io.*;
+
 import Cellular.Environment;
 import Cellular.Message;
 
@@ -13,6 +16,14 @@ class SendMessage extends Cellular.Message {
         text = args[2];
     }
     public void execute(Environment e) {
-        e.routeMessage(phone_number, text);
+        try {
+            e.routeMessage(phone_number, text);
+        } catch (UnknownHostException ex) {
+            // do nothing, the exception must be trapped since
+            // .execute() is no-throw
+        } catch (IOException ex) {
+            // do nothing, the exception must be trapped since
+            // .execute() is no-throw
+        }
     }
 }
